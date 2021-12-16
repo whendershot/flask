@@ -5,6 +5,10 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
+@app.route('/static')
+def render_static():
+    return render_template('static.html')
+
 @app.route('/repeater')
 def index():
     return render_template('repeater.html', phrase='hello', times=5)
