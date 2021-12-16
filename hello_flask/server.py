@@ -13,13 +13,13 @@ def index():
 def sucess():
     return 'Success! Sucess! Success! Success! Success!'
 
-@app.route('/hello/<name>')
-def hello(name):
+@app.route('/hello/<string:name>')
+def hello(name:str):
     print(name)
     return f'Hello, {name}'
 
-@app.route('/users/<username>/<id>')
-def show_user_profile(username, id):
+@app.route('/users/<string:username>/<int:id>')
+def show_user_profile(username:str, id:int):
     print(username)
     print(id)
     return f'Username: {username}, ID: {id}'
