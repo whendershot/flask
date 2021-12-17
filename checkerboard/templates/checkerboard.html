@@ -12,11 +12,11 @@
             background-color: {{color1}};
         }
 
-        .evens {
+        .color1 {
             background-color: {{color1}};
         }
         
-        .odds {
+        .color2 {
             background-color: {{color2}};
         }
 
@@ -33,11 +33,7 @@
         <div class="checkerboard">
             {% for i in range(0, row): %}
                 {% for j in range(0, col): %}
-                    {% if (i + j) % 2 == 0:  %}
-                        <div class="square evens" id="square{{col * i + j}}"></div>
-                    {% else %}
-                        <div class="square odds" id="square{{col * i + j}}"></div>
-                    {% endif %}
+                    <div class="square color{{ (i + j) % 2 + 1 }}" id="square{{col * i + j}}"></div>
                 {% endfor %}
             {% endfor %}
         </div>
