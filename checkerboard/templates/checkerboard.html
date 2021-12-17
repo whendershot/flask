@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type = "text/css" href="{{ url_for('static', filename='./style.css') }}">
+    <style>
+        h1 {
+            color: {{color2}};
+            background-color: {{color1}};
+        }
+
+        .evens {
+            background-color: {{color1}};
+        }
+        
+        .odds {
+            background-color: {{color2}};
+        }
+
+        .checkerboard {
+            width: calc(80px * {{col}});
+            height: calc(80px * {{row}});
+        }
+    </style>
+</head>
+<body>
+    <h1>*** Checkerboard ***</h1>
+    
+    {% if row > 0 and col > 0 %}
+        <div class="checkerboard">
+            {% for i in range(0, row): %}
+                {% for j in range(0, col): %}
+                    {% if (i + j) % 2 == 0:  %}
+                        <div class="square evens" id="square{{col * i + j}}"></div>
+                    {% else %}
+                        <div class="square odds" id="square{{col * i + j}}"></div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>
