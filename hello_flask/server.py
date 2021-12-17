@@ -1,9 +1,20 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__.split('.')[0])
 @app.route('/')
 def hello_world():
     return render_template('index.html')
+
+@app.route('/form_post')
+def test_form_post():
+    return render_template('form_post.html')
+
+@app.route('/form_post/users', methods=['POST'])
+def test_handle_users():
+    #Never use a render template on POST.
+    print('Got some post info!')
+    print(request.form)
+    return redirect('/form_post')
 
 @app.route('/static')
 def render_static():
