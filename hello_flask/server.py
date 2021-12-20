@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 
 app = Flask(__name__.split('.')[0])
+app.secret_key = 'keep it secret, keep it safe'
+
 @app.route('/')
 def hello_world():
     return render_template('index.html')
@@ -12,9 +14,16 @@ def test_form_post():
 @app.route('/form_post/users', methods=['POST'])
 def test_handle_users():
     #Never use a render template on POST.
-    print('Got some post info!')
+    print('Got some post info!')    
     print(request.form)
-    return redirect('/form_post')
+    session['user_name'] = request.form['name']
+    session['user_email'] = request.form['email']
+
+    return redirect('/show')
+
+@app.route('/show')
+def show_user():
+    return render_template('show.html', name_on_template = session['user_name'], email_on_template = session['user_email'])
 
 @app.route('/static')
 def render_static():
