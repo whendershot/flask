@@ -1,0 +1,28 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.submission-container {
+    margin-top: 20px;
+}
+
+.submission-container.success {
+    visibility: hidden;
+}
+
+.success {
+    background-color: green;
+    color: white;
+    border: 3px solid black;
+}
+
+.failure {
+    background-color: red;
+    color: white;
+    border: 3px solid black;
+}
+
+.container {
+}
