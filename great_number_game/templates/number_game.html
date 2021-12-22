@@ -33,6 +33,19 @@
             </form>
         </div>
     </div>
+
+    <div class="container {% if (not 'playing game' in session or session['playing_game']) and session['guess_class'] != 'success' %} hide-me {% endif %}">
+        <h1>Congrats!  Please add your name to your leaderboard!</h1>
+        <form action="/add_to_leaderboard" method="post">
+            <label for="name">Name:</label>
+            <input type="text" name ="name">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div class="container navbar fixed-bottom">
+        <a href="/leaderboard">Leaderboard</a>
+    </div>
 </body>
     <script 
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" 

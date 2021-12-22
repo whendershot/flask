@@ -41,9 +41,29 @@ def play_round():
     return redirect('/')
 
 @app.route('/reset')
-def reset():
-    session.clear()
+def restart():
+    reset()
     return redirect('/')
+
+def reset():
+    session.pop('playing_game')
+    session.pop('current_guess')
+    session.pop('guess_class')
+    session.pop('num_guesses')
+    session.pop('secret_number')
+
+@app.route('/add_to_leaderboard', methods=['POST'])
+def add_to_leaderboard():
+    if 'leaderboard' in session:
+        session['leaderboard'].append({'name' : request.form['name'], 'num_guesses' : session['num_guesses']})
+    else:
+        session['leaderboard'] = [{'name' : request.form['name'], 'num_guesses' : session['num_guesses']}]
+    reset()
+    return redirect('/leaderboard')
+
+@app.route('/leaderboard')
+def leaderboard():
+    return render_template('./leaderboard.html')
 
 @app.route('/', defaults={'u_path' : ''})
 @app.route('/<path:u_path>')
