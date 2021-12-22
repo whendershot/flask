@@ -8,12 +8,12 @@ app.secret_key = 'keep it secret, keep it safe'
 @app.route('/')
 def game_frame():
     print(session)
-    if ('playing_game' in session and (session['playing_game'] or session['guess_class'] =='success')):
+    if ('playing_game' in session and (session['playing_game'] or session['guess_class'] != None)):
         return render_template('./guess.html')
     else :
         session['playing_game'] = True
-        session['guess_class'] = 'guessing'
         session['secret_number'] = str(random.randint(1, 100))
+        session['num_guesses'] = 0
         return render_template('./number_game.html')
 
 @app.route('/make_guess', methods=['POST'])
@@ -22,19 +22,21 @@ def play_round():
     print(f"Request: {request.form}")
     if ('playing_game' in session) and (session['playing_game']):
         session['current_guess'] = request.form['guess']
+        session['num_guesses'] += 1
         if session['current_guess'] == session['secret_number']:
-            session['result_string'] = f"{session['current_guess']} was the number!"
+            session['result_string'] = f"{session['current_guess']} was the correct number!  You used {session['num_guesses']} guesses."
             session['playing_game'] = False
             session['guess_class'] = 'success'
-            print("Winner!")
+        elif session['num_guesses'] >=5:
+            session['playing_game'] = False
+            session['guess_class'] = 'failure'
+            session['result_string'] = f"You failed to guess within 5 guesses.  {session['secret_number']} was the correct number.  Try again?"
         elif session['current_guess'] < session['secret_number']:
             session['result_string'] = f"{session['current_guess']} is too low!"
             session['guess_class'] = 'failure'
-            print("Too low!")
         else:
             session['result_string'] = f"{session['current_guess']} is too high!"
             session['guess_class'] = 'failure'
-            print("Too high!")
 
     return redirect('/')
 

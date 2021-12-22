@@ -25,7 +25,7 @@
         {% block guess_result %}{% endblock  %}
     </div>
 
-    <div class="submission-container container {% if session['guess_class'] == 'success' %} success {% endif %}">
+    <div class="submission-container container {% if not session['playing_game'] %} hide-me {% endif %}">
         <div class="d-flex justify-content-center">
             <form method="post" action="/make_guess">
                 <input type="number" name="guess" min="1" max="100">
