@@ -18,7 +18,7 @@ def process_form():
     session['latest_survey'] = {
         'name' : request.form['user_name'],
         'location' : request.form['dojo_location'],
-        'language' : request.form['language'],
+        'languages' : request.form.getlist('languages'),
         'comment' : request.form['comment']
     }
     session['surveys'].append(session['latest_survey'])

@@ -13,19 +13,18 @@
         </div>
         <label for="dojo_location" class="col-form-label col-md-3">Dojo location:</label>
         {% for location in data['dojo_locations'] %}
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" value="{{location['name'] }}" name="dojo_location" id="dojoLocation{{loop.index0}}">
-            <label class="form-check-label" for="dojoLocation{{loop.index0}}">{{location['name']}}</label>
+        <div class="col form-check form-check-inline">
+            <input class="form-check-input" type="radio" value="{{ location['name'] }}" name="dojo_location" id="dojoLocation{{ loop.index0 }}">
+            <label class="form-check-label" for="dojoLocation{{ loop.index0 }}">{{ location['name']}}</label>
         </div>
         {% endfor %}
         <label for="language" class="col-form-label col-md-3">Favorite Language:</label>
-        <div class="col-md-9">
-            <select name="language" class="form-control">
-                <option value="">--- Select a Language ---</option>
-                {% for lang in data['available_programming_languanges'] %}
-                    <option value="{{ lang['name'] }}">{{ lang['name'] }}</option>
-                {% endfor %}
-            </select>
+        {% for lang in data['available_programming_languanges'] %}
+        <div class="col form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="{{ lang['name'] }}" name="languages" id="language{{ loop.index0 }}">
+            <label class="form-check-label" for="language{{ loop.index0 }}">{{ lang['name'] }}</label>
+        </div>
+        {% endfor %}
         </div>
         <div class="col">
             <label for="comment" class="form-label">Comment: (optional)</label>
