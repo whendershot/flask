@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Money</title>
+</head>
+<body>
+    <div class="container" id="the_game">
+        <h1>{{ session }}</h1>
+        {% for visit in session['commands'] %}
+        <div class="card">
+            <form action="/process_money" method="post">
+                <h3>{{ visit['display_name'] }}</h3>
+                <p>{{ visit['description'] }}</p>
+                <input type="hidden" name="command" value="{{ visit['name'] }}"/>
+                <input type="submit" value="Find Gold!"/>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="container" id="visit_history">
+        {% for past_visit in session['transaction_hist'] %}
+            <p>{{ past_visit}}</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
